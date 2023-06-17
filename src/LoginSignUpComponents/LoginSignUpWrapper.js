@@ -8,7 +8,7 @@ const LoginSignUpWrapper = ({type}) => {
     <>
         <div className="w-full h-screen flex">
             {/* Left Panel */}
-            {type === 'Login' && <ImagePanel color={"bg-emerald-950"} svgSide={"left"} />}
+            {type === 'Login' && <ImagePanel color={"bg-emerald-900"} svgSide={"left"} />}
             {/* Right Panel */}
             <div className="w-[50%] h-screen px-[100px] py-[50px] flex flex-col">
                 {type === 'Login' ? <Login/> : <SignUp/>}

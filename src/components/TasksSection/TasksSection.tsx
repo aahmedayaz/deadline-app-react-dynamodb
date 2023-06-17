@@ -28,7 +28,7 @@ const TasksSection: React.FC = () => {
         <Route path="/results" element={<SearchResults />} />
         <Route path="/dir/:dir" element={<Directory />} />
         <Route path="/task/:taskId" element={<TaskOnly />} />
-        <Route path="*" element={<Navigate to="" />} />
+        <Route path="/*" element={<Navigate to="" />} />
       </Routes>
     </main>
   );

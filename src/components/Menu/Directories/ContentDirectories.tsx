@@ -17,7 +17,7 @@ const ContentDirectories: React.FC<{ classActive: string }> = ({
 
     if (newDirectoryName.length === 0) return;
 
-    const directoryDoesNotExist = directories.every(
+    const directoryDoesNotExist = directories?.every(
       (dir: string) => dir !== newDirectoryName
     );
 
@@ -42,7 +42,7 @@ const ContentDirectories: React.FC<{ classActive: string }> = ({
       )}
 
       <ul className="max-h-36 overflow-auto">
-        {directories.map((dir: string) => (
+        {directories?.map((dir: string) => (
           <ItemDirectory key={dir} classActive={classActive} dir={dir} />
         ))}
       </ul>

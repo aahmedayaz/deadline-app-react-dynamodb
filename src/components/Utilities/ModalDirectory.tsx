@@ -15,7 +15,7 @@ const ModalDirectory: React.FC<{
   const [newDirName, setNewDirName] = useState<string>(dirName ? dirName : "");
 
   const checkDirNameExists = (val: string) => {
-    const directoryDoesNotExist = directories.every(
+    const directoryDoesNotExist = directories?.every(
       (dir: string) => dir !== val
     );
 

@@ -56,11 +56,11 @@ const ItemDirectory: React.FC<{ dir: string; classActive: string }> = ({
       )}
       <li
         className={`flex items-center pr-4 pl-9 py-2 itemDirectory ${
-          currentPath === "/dir/" + dir ? classActive : ""
+          currentPath === "/dashboard/dir/" + dir ? classActive : ""
         }`}
       >
         <NavLink
-          to={`/dir/${dir}`}
+          to={`/dashboard/dir/${dir}`}
           title={dir}
           className="hover:text-rose-600 dark:hover:text-slate-200 transition text-ellipsis whitespace-nowrap overflow-hidden max-w-[7rem]"
         >
