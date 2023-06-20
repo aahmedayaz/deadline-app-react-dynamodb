@@ -2,6 +2,8 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import SignInExtra from './SignInExtra'
 import { useState } from 'react'
+import axios from 'axios';
+
 
 const Login = () => {
 
@@ -14,9 +16,20 @@ const Login = () => {
     e.target.name === 'email' ? setEmail(e.target.value) : setPassword(e.target.value)
   }
   
-  let HandleSubmit = (e) => {
+  let HandleSubmit = async (e) => {
     e.preventDefault();
-  }
+  
+    try {
+      const response = await axios.post('arn:aws:execute-api:us-east-1:291832093060:fckrfhxsf4/*/POST/login', {
+        email,
+        password
+      });
+      console.log(response.data); // Handle successful login response
+      // Redirect to App.js or perform any other action
+    } catch (error) {
+      console.error(error); // Handle login error
+    }
+  };
 
   return (
     <>

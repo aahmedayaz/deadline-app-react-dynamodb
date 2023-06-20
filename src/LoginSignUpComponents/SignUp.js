@@ -2,6 +2,8 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import SignInExtra from './SignInExtra'
 import { useState } from 'react'
+import axios from 'axios';
+
 
 const SignUp = () => {
 
@@ -13,7 +15,8 @@ const SignUp = () => {
   let [passwordError , setPasswordError] = useState('')
 
   let handleInput = (e) => {
-    if((e.target.value).trim() === ''){
+    console.log(e.target.value);
+    if((e.target.value).trim() === '' || null){
       let text = (e.target.value).trim()
       e.target.value = text;
     }
@@ -75,9 +78,66 @@ const SignUp = () => {
   }
 
 
-  let HandleSubmit = (e) => {
+  let HandleSubmit = async (e) => {
     e.preventDefault();
+    console.log('submitted');
+  
+    // Initialize flag variable
+    let isValid = true;
+  
+    // Validate inputs
+    if (name === '') {
+      setNameError('Please provide a Name');
+      isValid = false;
+    } else if (name.match(/[-’/`~!#*$@_%+=.,^&(){}[\]|;:”<>?\\]/g)) {
+      setNameError('Name must not contain any Special Characters');
+      isValid = false;
+    } else if (!name.match(/^[^0-9]+$/)) {
+      setNameError('Name must not contain any Number');
+      isValid = false;
+    } else if (name.length < 3) {
+      setNameError('Name must be greater than 3 letters');
+      isValid = false;
+    } else {
+      setNameError('');
+    }
+  
+    if (email === '') {
+      setEmailError('Please provide an Email');
+      isValid = false;
+    } else if (!email.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
+      setEmailError('Invalid Email');
+      isValid = false;
+    } else {
+      setEmailError('');
+    }
+  
+    if (password === '') {
+      setPasswordError('Please provide a Password');
+      isValid = false;
+    } else if (password.length < 6) {
+      setPasswordError('Password must be greater than 6 digits');
+      isValid = false;
+    } else {
+      setPasswordError('');
+    }
+  
+    // Make API call only if all inputs are valid
+    if (isValid) {
+      try {
+        const response = await axios.post('https://fckrfhxsf4.execute-api.us-east-1.amazonaws.com/prod/signup', {
+          name,
+          email,
+          password
+        });
+        console.log(response.data); // Handle successful signup response
+        // Redirect to App.js or perform any other action
+      } catch (error) {
+        console.error(error); // Handle signup error
+      }
+    }
   }
+  
 
   return (
     <>

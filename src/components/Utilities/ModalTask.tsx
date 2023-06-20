@@ -83,11 +83,16 @@ const ModalCreateTask: React.FC<{
     return false;
   });
 
-  const [selectedDirectory, setSelectedDirectory] = useState<string>(() => {
+  const [selectedDirectory, setSelectedDirectory] = useState<string | undefined>(() => {
     if (task) {
       return task.dir;
     }
-    return directories[0];
+    if(typeof(directories) == 'undefined'){
+      return undefined
+    }
+    else{
+      return directories[0];
+    }
   });
 
   const addNewTaskHandler = (event: React.FormEvent): void => {
@@ -99,7 +104,7 @@ const ModalCreateTask: React.FC<{
     if (isTitleValid.current && isDateValid.current) {
       const newTask: Task = {
         title: title,
-        dir: selectedDirectory,
+        dir: selectedDirectory || '',
         description: description,
         date: date,
         completed: isCompleted,
@@ -155,7 +160,7 @@ const ModalCreateTask: React.FC<{
             value={selectedDirectory}
             onChange={({ target }) => setSelectedDirectory(target.value)}
           >
-            {directories.map((dir: string) => (
+            {directories?.map((dir: string) => (
               <option
                 key={dir}
                 value={dir}
